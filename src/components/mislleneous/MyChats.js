@@ -8,7 +8,7 @@ import { getSender } from '../../config/ChatLogic';
 import GroupChatModal from './GroupChatModal';
 
 
-const MyChats = () => {
+const MyChats = ({fetchAgain}) => {
   const { user,selectedChat,setSelectedChat ,chats,setChats} = ChatState();
   const [loggedUser, setLoggedUser] = useState();
   // const history = useHistory();
@@ -46,7 +46,7 @@ const MyChats = () => {
     fetchChat();
   
 
-  }, [])
+  }, [fetchAgain])
   
 
   return (

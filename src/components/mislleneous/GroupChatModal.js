@@ -11,6 +11,7 @@ import {
   useToast,
   FormControl,
   Input,
+  Box,
 } from "@chakra-ui/react";
 // import {FromControl} from "@chakra-ui/from-control"
 import React, { useState } from "react";
@@ -62,7 +63,57 @@ const GroupChatModal = ({ children }) => {
       });
     }
   };
-  const handleSubmit = () => {};
+  const handleSubmit = async () => {
+    if(!groupChatName || !selectedUser){
+      toast({
+        title: "Please fill all the Fields",
+        
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "top",
+      });
+    }
+    try {
+      
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+
+      const { data } = await axios.post(
+        `http://localhost:5000/api/chats/group`,{
+        name:groupChatName,
+        users:JSON.stringify(selectedUser.map((u)=>u._id))
+        },
+        config
+      );
+      // console.log(data);
+      
+      setChats([data,...chats]);
+      onClose();
+      toast({
+        title: "New group created",
+        
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+
+    } catch (error) {
+      console.log(error);
+      toast({
+        title: "Failed to created chat",
+        description: "Failed to load search result",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-left",
+      });
+    }
+  };
   const handleGroup = (userToAdd) => {
     if (selectedUser.includes(userToAdd)) {
       toast({
@@ -76,7 +127,9 @@ const GroupChatModal = ({ children }) => {
     }
     setSelectedUser([...selectedUser, userToAdd]);
   };
-  const handleDelete = () => {};
+  const handleDelete = (delUser) => {
+    setSelectedUser(selectedUser.filter(sel=>sel._id!==delUser._id))
+  };
 
   return (
     <>
@@ -108,6 +161,8 @@ const GroupChatModal = ({ children }) => {
                 onChange={(e) => handleSearch(e.target.value)}
               />
             </FormControl>
+            <Box w="100%" d="flex" flexWrap="wrap">
+
             {selectedUser.map((users) => (
               <UserBadgeItem
                 key={users._id}
@@ -115,6 +170,7 @@ const GroupChatModal = ({ children }) => {
                 handleFunction={() => handleDelete(users)}
               /> 
             ))}
+            </Box>
             {loading ? (
               <div>Loading...</div>
             ) : (
