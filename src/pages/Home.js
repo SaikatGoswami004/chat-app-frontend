@@ -1,67 +1,27 @@
-import React, { useEffect } from "react";
-import {
-  Container,
-  Box,
-  Text,
-  Center,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
-} from "@chakra-ui/react";
-import Login from "../components/auth/Login";
-import SignUp from "../components/auth/SignUp";
-import { useHistory } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { ChatState } from "../context/ChatProvider";
+import { Box } from "@chakra-ui/react";
+import SideDrawer from "../components/mislleneous/SideDrawer";
+import MyChats from "../components/mislleneous/MyChats";
+import ChatBody from "../components/mislleneous/ChatBody";
+import "./Chats.css"
 
-const Home = () => {
-  const history=useHistory()
-    useEffect(() => {
-      const user=JSON.parse(localStorage.getItem("userInfo"))
-      
-      if(user){
-        history.push("/")
-      }
-    
-     
-    }, [history])
+const Chats = () => {
+  const { user } = ChatState();
+  const [fetchAgain,setFetchAgain]=useState(false);
+
+// console.log(user);
   return (
-    <Container maxW="xl" centerContent>
-      <Box
-        d="flex"
-        justifyContent="center"
-        p={1}
-        bg="white"
-        w="100%"
-        m="40px 0 15px 0"
-        borderRedius="lg"
-        borderWidth="1px"
-        h="3rem"
-      >
-        <Center fontSize="2xl" fontFamily="Work sans" color="Black">
-          Chat App
-        </Center>
-        {/* <Text   color="Black"></Text> */}
+    <div style={{ width: "100%" }}>
+      {user && <SideDrawer />}
+      <Box className="flexbox" w="100%" h="91.5vh" p="10px" >
+        {user && <MyChats fetchAgain={fetchAgain} />}
+        {user && <ChatBody fetchAgain={fetchAgain} setFetchAgain={setFetchAgain}  />}
       </Box>
-      <Box bg="white" w="100%" p={3} borderRedius="lg" borderWidth="1px" color="black" >
-        <Tabs variant="soft-rounded" colorScheme="yellow">
-          <TabList mb="1em">
-            <Tab width="50%">Login</Tab>
-            <Tab width="50%">Sign Up</Tab>
-          </TabList>
-          <TabPanels >
-            <TabPanel>
-              <Login></Login>
-            </TabPanel>
-            <TabPanel h="27rem">
-              <SignUp></SignUp>
-              
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
-      </Box>
-    </Container>
+    </div>
   );
 };
 
-export default Home;
+export default Chats;
+

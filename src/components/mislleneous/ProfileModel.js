@@ -11,7 +11,7 @@ import {
   ModalOverlay,
   useDisclosure,
   Image,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import React from "react";
 
@@ -38,9 +38,12 @@ const ProfileModel = ({ user, children }) => {
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Image borderRedius="full" boxSize="150px" src={user.image} alt={user.name} />
-            <Text fontSize={{ base: "28px", md: "30px" }} fontFamily="Work sans">
-             Email:{user.email}
+            <Image boxSize="150px" src={user.image} alt={user.name} />
+            <Text
+              fontSize={{ base: "28px", md: "30px" }}
+              fontFamily="Work sans"
+            >
+              Email:{user.email}
             </Text>
           </ModalBody>
 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { VStack } from "@chakra-ui/layout";
 import { FormControl, FormLabel } from "@chakra-ui/form-control";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
-import { Button } from "@chakra-ui/react";
+import { Button,Text } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 import axios from "axios";
 import {useHistory} from "react-router-dom"
@@ -67,6 +67,10 @@ const Login = () => {
 
   };
 
+  const forgotPasswordHandler=()=>{
+    history.push("/forgotpassword")
+  }
+
   return (
     <VStack spacing="5px">
       <FormControl id="email" isRequired>
@@ -98,7 +102,7 @@ const Login = () => {
       </FormControl>
 
       <Button
-        colorScheme="blue"
+        colorScheme="teal"
         width="100%"
         style={{ marginTop: 15 }}
         onClick={submitHandler}
@@ -106,7 +110,7 @@ const Login = () => {
       >
         Login
       </Button>
-      <Button
+      {/* <Button
         vairent="solid"
         colorScheme="red"
         width="100%"
@@ -117,7 +121,10 @@ const Login = () => {
         }}
       >
         Guest
-      </Button>
+      </Button> */}
+      <Text cursor="pointer" onClick={forgotPasswordHandler} >Forgot Password? </Text>
+
+      <Text>New User? then Click on SignUp </Text>
     </VStack>
   );
 };
