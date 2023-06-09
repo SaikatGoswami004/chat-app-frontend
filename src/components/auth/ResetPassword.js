@@ -6,6 +6,7 @@ import { Button, Text, Container, Box } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import { ChatState } from "../../context/ChatProvider";
 
 const Login = () => {
   const [newPassword, setNewPassword] = useState();
@@ -13,6 +14,10 @@ const Login = () => {
   const [passwordShow, setPasswordShow] = useState(false);
   const [confirmPasswordShow, setConfirmPasswordShow] = useState(false);
   const history=useHistory()
+  const { user } = ChatState()
+  
+
+  const toast = useToast();
 
 
   const handleClickPShow=()=>{
@@ -27,7 +32,53 @@ const Login = () => {
   }
 
   const submitHandler = async () => {
-    history.push("/chats")
+    if (!newPassword || !confirmPassword) {
+      toast({
+        title: "Please fill All Fields",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      return;
+    }
+    try {
+      const config = {
+        header: {
+          "Content-type": "application/json",
+        },
+      };
+      const email=user.user.email
+      console.log(email);
+      const { data } = await axios.post(
+        "http://localhost:5000/api/user/reset-password",
+        { email, newPassword, confirmPassword },
+        config
+      );
+
+      if (data.success === true) {
+        
+        history.push("/auth")
+        toast({
+          title: "Pleasae Login!",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+        localStorage.removeItem("userInfo");
+      }
+    } catch (error) {
+      console.log(error);
+      toast({
+        title: "Error!",
+        description: error.response.data.message,
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
+    
   };
 
   return (

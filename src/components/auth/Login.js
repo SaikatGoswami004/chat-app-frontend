@@ -51,7 +51,7 @@ const Login = () => {
       });
       localStorage.setItem("userInfo",JSON.stringify(data));
       setLoading(false);
-      history.push("/chats")
+      history.push("/")
     } catch (error) {
       console.log(error);
       toast({
@@ -124,7 +124,7 @@ const Login = () => {
       </Button> */}
       <Text cursor="pointer" onClick={forgotPasswordHandler} >Forgot Password? </Text>
 
-      <Text>New User? then Click on SignUp </Text>
+      <Text >New User? then Click on SignUp </Text>
     </VStack>
   );
 };

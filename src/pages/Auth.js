@@ -16,14 +16,17 @@ import { useHistory } from "react-router-dom";
 
 const Auth = () => {
   const history = useHistory();
-  // useEffect(() => {
-  //   const user=JSON.parse(localStorage.getItem("userInfo"))
+  useEffect(() => {
+    const user=JSON.parse(localStorage.getItem("userInfo"))
 
-  //   if(user){
-  //     history.push("/")
-  //   }
+    if(!user){
+      history.push("/auth");
+    }else{
+      history.push("/");
 
-  // }, [history])
+    }
+
+  }, [history])
   return (
     <Container maxW="xl" centerContent>
       {/* <Box
