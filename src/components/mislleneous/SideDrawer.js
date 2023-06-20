@@ -125,7 +125,8 @@ const SideDrawer = () => {
   return (
     <>
       <Box
-        className="flexbox"
+      style={{display:"flex",justifyContent:"space-between"}}
+        
         alignItems="center"
         bg="white"
         w="100%"
@@ -136,13 +137,13 @@ const SideDrawer = () => {
           <Button variant="gost" onClick={onOpen}>
             <i class="fas fa-search"></i>
             <Text d={{ base: "none", md: "flex" }} px="4">
-              search User
+              Search People
             </Text>
           </Button>
         </Tooltip>
-        <Text>Chat App</Text>
-        <Menu>
-          <MenuButton p={1}>
+        <Text style={{margin:"0 0 0 28rem"}}>Chat App</Text>
+        <Menu >
+          <MenuButton p={1}  style={{margin:"0 0 0 28rem"}}>
             <NotificationBadge
               count={notifications.length}
               effect={Effect.SCALE}
@@ -186,10 +187,10 @@ const SideDrawer = () => {
       <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent>
-          <DrawerHeader borderBottomWidth="1px">Search User</DrawerHeader>
+          <DrawerHeader borderBottomWidth="1px"> Search People</DrawerHeader>
 
           <DrawerBody>
-            <Box d="flex" pb={2}>
+            <Box style={{display:"flex"}} pb={2}>
               <Input
                 placeholder="Search People.."
                 mr={2}

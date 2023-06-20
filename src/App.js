@@ -1,7 +1,7 @@
 import "./App.css";
 import { Route, Switch } from "react-router-dom";
 import Home from "./pages/Home";
-import Chats from "./pages/Chats";
+
 import Auth from "./pages/Auth";
 import ForgotPassword from "./components/auth/ForgotPassword";
 import ResetPassword from "./components/auth/ResetPassword";

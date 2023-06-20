@@ -4,3 +4,10 @@
     overflow-y: scroll;
     scrollbar-width: none;
 }
+.p{
+    
+    scrollbar-width: none;
+}
+.chatScrolBar::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
